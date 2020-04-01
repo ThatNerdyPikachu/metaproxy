@@ -34,7 +34,7 @@ docker run -e ADVERTISE_IP="http://<local ip>:32400/" -e ALLOWED_NETWORKS=192.16
 -v <redacted>:/media:ro \
 plexinc/pms-docker
 ```
-(If there is something I am configuring wrong here, please open an issue, PR, or post on the [Plex forum thread](). Thanks!)
+(If there is something I am configuring wrong here, please open an issue, PR, or post on the [Plex forum thread](https://forums.plex.tv/t/metaproxy-for-plex/566250). Thanks!)
 
 5. Configure your reverse proxy
 - I use [Caddy](https://caddyserver.com/v1), but feel free to use what you want!
@@ -79,4 +79,4 @@ The default options work fine for the setup that we've configured in this guide,
 Congrats, you're done!
 
 ## Support
-If you run into any issues, please post in the [Plex forum thread](), or open an issue here.
+If you run into any issues, please post in the [Plex forum thread](https://forums.plex.tv/t/metaproxy-for-plex/566250), or open an issue here.
