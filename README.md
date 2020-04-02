@@ -7,15 +7,14 @@ This proxies requests to Plex's ``/library/metadata`` endpoints, and adds in sub
 1. Download the [latest version of metaproxy](https://github.com/ThatNerdyPikachu/metaproxy/releases/latest) for your OS/arch, and unzip it somewhere.
 
 2. Grab your Plex servers ``*.<hash>.plex.direct`` certificate
-- That's inside the main app data directory on Windows & Linux ([see this Plex support article for more information](https://support.plex.tv/articles/202915258-where-is-the-plex-media-server-data-directory-located/))
-- On macOS, it's in the regular library caches (``~/Library/Caches/PlexMediaServer/certificate.p12``)
-- Thanks to Plex for providing me with this information!
+    - That's inside the main app data directory on Windows & Linux ([see this Plex support article for more information](https://support.plex.tv/articles/202915258-where-is-the-plex-media-server-data-directory-located/))
+    - On macOS, it's in the regular library caches (``~/Library/Caches/PlexMediaServer/certificate.p12``)
+    - Thanks to Plex for providing me with this information!
 
 3. Decrypt your certificate
-- The key to this is equal to the SHA512 **hash** of the string ``plex<MACHINE ID>``
-    - Where ``<MACHINE ID>`` is equal to the value of ``ProcessedMachineIdentifier`` from your servers advanced settings, [see this Plex support article for more information](https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/)
-- So, if my machine ID was ``deadbeef``, the string to hash would be ``plexdeadbeef``.
-- The key is lowercase, as is the string to hash.
+    - The key to this is equal to the SHA512 **hash** of the string ``plex<MACHINE ID>``, where ``<MACHINE ID>`` is equal to the value of ``ProcessedMachineIdentifier`` from your servers advanced settings, [see this Plex support article for more information](https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/)
+        - So, if my machine ID was ``deadbeef``, the string to hash would be ``plexdeadbeef``.
+    - The key is lowercase, as is the string to hash.
 Example commands to decrypt the certificate:
 ```
 openssl pkcs12 -in certificate.p12 -out plex.cert -clcerts -nokeys -passin "pass:<that hash>"
@@ -40,7 +39,7 @@ plexinc/pms-docker
 (If there is something I am configuring wrong here, please open an issue, PR, or post on the [Plex forum thread](https://forums.plex.tv/t/metaproxy-for-plex/566250). Thanks!)
 
 5. Configure your reverse proxy
-- I use [Caddy](https://caddyserver.com/v1), but feel free to use what you want!
+    - I use [Caddy](https://caddyserver.com/v1), but feel free to use what you want!
 
 My configuration is as so (note the ``*``):
 ```
