@@ -3,6 +3,14 @@
 builds:
 - env:
   - CGO_ENABLED=0
+  goos:
+    - darwin
+    - linux
+    - windows
+  goarch:
+    - 386
+    - amd64
+    - arm
 archives:
 - replacements:
     darwin: Darwin
