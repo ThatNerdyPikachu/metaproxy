@@ -5,10 +5,12 @@ This proxies requests to Plex's ``/library/metadata`` endpoints, and adds in sub
 
 ## Setup
 1. Download the [latest version of metaproxy](https://github.com/ThatNerdyPikachu/metaproxy/releases/latest) for your OS/arch, and unzip it somewhere.
+
 2. Grab your Plex servers ``*.<hash>.plex.direct`` certificate
 - That's inside the main app data directory on Windows & Linux ([see this Plex support article for more information](https://support.plex.tv/articles/202915258-where-is-the-plex-media-server-data-directory-located/))
 - On macOS, it's in the regular library caches (``~/Library/Caches/PlexMediaServer/certificate.p12``)
 - Thanks to Plex for providing me with this information!
+
 3. Decrypt your certificate
 - The key to this is equal to the SHA512 **hash** of the string ``plex<MACHINE ID>``
     - Where ``<MACHINE ID>`` is equal to the value of ``ProcessedMachineIdentifier`` from your servers advanced settings, [see this Plex support article for more information](https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/)
@@ -20,6 +22,7 @@ openssl pkcs12 -in certificate.p12 -out plex.cert -clcerts -nokeys -passin "pass
 openssl pkcs12 -in certificate.p12 -out plex.key -nocerts -nodes -passin "pass:<that hash>"
 ```
 where ``<that hash>`` is your hash.
+
 4. Configure your Plex server
 Currently I've only been able to get this working on Docker, as with that, I can map a port on the container to a port on my server.
 
