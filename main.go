@@ -169,9 +169,9 @@ func main() {
 		url.Host = *plexHost
 
 		if *secure {
-			url.Scheme = "http"
-		} else {
 			url.Scheme = "https"
+		} else {
+			url.Scheme = "http"
 		}
 
 		request, _ := http.NewRequest(r.Method, url.String(), nil)
