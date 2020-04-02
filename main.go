@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"flag"
 	"io/ioutil"
@@ -151,9 +152,11 @@ func getMediaTitle(media *media) string {
 }
 
 func main() {
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+
 	bindAddress := flag.String("addr", "127.0.0.1:3213", "the address to bind to")
 	plexHost := flag.String("plex-host", "localhost:32401", "the host + port that your plex server is running on")
-	secure := flag.Bool("secure", false, "use https to connect to your plex server (will increase loading times) (needed if Secure Connections is set to Required)")
+	secure := flag.Bool("secure", true, "use https to connect to your plex server (will increase loading times) (needed if Secure Connections is set to Required)")
 
 	flag.Parse()
 

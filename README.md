@@ -27,7 +27,7 @@ Currently I've only been able to get this working on Docker, as with that, I can
 
 My container is ran as so:
 ```
-docker run -e ADVERTISE_IP="http://<local ip>:32400/" -e ALLOWED_NETWORKS=192.168.200.0/24 \
+docker run -e ADVERTISE_IP="http://<local ip>:32400/" -e ALLOWED_NETWORKS=<local netmask> \
 -d --restart=always \
 --name plex \
 -p 32401:32400 \
@@ -37,6 +37,8 @@ docker run -e ADVERTISE_IP="http://<local ip>:32400/" -e ALLOWED_NETWORKS=192.16
 plexinc/pms-docker
 ```
 (If there is something I am configuring wrong here, please open an issue, PR, or post on the [Plex forum thread](https://forums.plex.tv/t/metaproxy-for-plex/566250). Thanks!)
+
+    - For now, until I can figure out a solution, you'll also need to set your server to *require* secure connections.
 
 5. Configure your reverse proxy
     - I use [Caddy](https://caddyserver.com/v1), but feel free to use what you want!
@@ -48,9 +50,10 @@ My configuration is as so (note the ``*``):
                 transparent
         }
 
-        proxy / localhost:32401 {
+        proxy / https://localhost:32401 {
                 transparent
                 websocket
+                insecure_skip_verify
         }
 
         log logs/plex.log
